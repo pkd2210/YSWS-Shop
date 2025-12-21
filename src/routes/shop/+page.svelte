@@ -1,9 +1,10 @@
-<script>
+<script lang="ts">
     import config from '$lib/stores/config.json';
     import { onMount } from 'svelte';
     import Card from '$lib/components/card.svelte';
 
-    let items = [];
+    export let data;
+    let items: any[] = [];
 
     onMount(async () => {
         const response = await fetch('/shop/items');
@@ -18,5 +19,5 @@
 <div class="title">{config["ysws-name"]}'s Shop</div>
 
 {#each items as item}
-    <Card {item} />
+    <Card {item} {data} />
 {/each}
