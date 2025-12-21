@@ -1,6 +1,5 @@
 <script>
     import config from '$lib/stores/config.json';
-
 </script>
 
 <div class="center">

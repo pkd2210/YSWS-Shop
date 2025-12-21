@@ -2,7 +2,7 @@
 	import '../app.css';
 	import favicon from '$lib/assets/favicon.svg';
     import config from '$lib/stores/config.json';
-	let { children } = $props();
+	let { children, data } = $props();
 </script>
 
 <svelte:head>
