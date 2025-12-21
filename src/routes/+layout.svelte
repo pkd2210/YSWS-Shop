@@ -5,6 +5,19 @@
 	let { children, data } = $props();
 </script>
 
+<div class="w-full">
+	{#if data.user}
+		<div class="fixed top-4 left-0 right-0 z-50 flex flex-col items-center">
+			<div style="color: {config['theme-color']}; background-color: {config['background-color']}; border: 2px solid {config['secondary-theme-color']};" class="flex flex-wrap items-center justify-center gap-2 px-4 py-2 rounded-lg shadow-lg">
+				<span>{data.user.first_name} | <a href="{config['url-base']}/logout">Logout</a> | </span>
+				<a href="{config['url-base']}">Home</a>
+				<a href="{config['url-base']}/shop">Shop</a>
+			</div>
+		</div>
+	{/if}
+	
+</div>
+
 <svelte:head>
 	<link rel="icon" href={favicon} />
 </svelte:head>
@@ -28,6 +41,7 @@
 	.app-root {
 		min-height: 100vh;
 		background-color: var(--background-color);
+		padding-top: 5rem;
 	}
 
 	:global(.center) {
