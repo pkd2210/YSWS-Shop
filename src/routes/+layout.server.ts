@@ -11,6 +11,8 @@ export async function load({ cookies }: any) {
 
     let isAdmin = false;
     let userTokens = 0;
+    let userRecordId = null;
+    
     if (data.identity?.slack_id) {
         try {
             const base = new Airtable({ 
@@ -24,8 +26,8 @@ export async function load({ cookies }: any) {
             const userRecord = await base(process.env.USERS_TABLE_ID!).select({
                 filterByFormula: `{SlackID} = '${data.identity.slack_id}'`
             }).firstPage();
-            if (!userRecord.includes(userRecord[0])) {
-                await base(process.env.USERS_TABLE_ID!).create([
+            if (userRecord.length === 0) {
+                const newUserRecord = await base(process.env.USERS_TABLE_ID!).create([
                     {
                         fields: {
                             SlackID: data.identity.slack_id,
@@ -33,10 +35,11 @@ export async function load({ cookies }: any) {
                         }
                     }
                 ]);
-                userTokens = 0
-            }
-            else {
-                userTokens = userRecord[0].get('Tokens') || 0;
+                userTokens = 0;
+                userRecordId = newUserRecord[0].id;
+            } else {
+                userTokens = Number(userRecord[0].get('Tokens')) || 0;
+                userRecordId = userRecord[0].id;
             }
         } catch (error) {
             console.error('Error checking admin status:', error);
@@ -47,6 +50,7 @@ export async function load({ cookies }: any) {
     return {
         user: data.identity,
         isAdmin,
-        userTokens
+        userTokens,
+        userRecordId
     };
 }

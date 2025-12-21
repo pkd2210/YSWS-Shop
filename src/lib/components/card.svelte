@@ -3,6 +3,26 @@
     
     export let item;
     export let data;
+
+    async function handleBuy(item, data) {
+        try {
+            const response = await fetch('/shop/buy', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ item, data })
+            });
+            if (response.ok) {
+                const result = await response.json();
+                console.log('Purchase successful:', result);
+                alert('Purchase successful!');
+                window.location.reload();
+            }
+        } catch (error) {
+            console.error('Error purchasing item:', error);
+        }
+    }
 </script>
 <div class="card" style="border-color: {config['secondary-theme-color']}; background-color: {config['background-color']};">
     <h2 style="color: {config['theme-color']};">{item.name}</h2>
@@ -12,7 +32,7 @@
     </div>
     <div class="actions">
         {#if item.price <= data.userTokens}
-        <button style="background-color: {config['theme-color']}; color: {config['background-color']}; border: none; padding: 0.5rem 1rem; border-radius: 0.25rem; cursor: pointer;">
+        <button  on:click={() => handleBuy(item, data)} style="background-color: {config['theme-color']}; color: {config['background-color']}; border: none; padding: 0.5rem 1rem; border-radius: 0.25rem; cursor: pointer;">
             Buy Now
         </button>
         {:else}

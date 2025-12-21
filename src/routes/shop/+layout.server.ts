@@ -6,6 +6,9 @@ export const load = async ({ parent }) => {
         throw redirect(303, '/api/login');
     }
     return {
-        user: data.user
+        user: data.user,
+        userTokens: data.userTokens,
+        userRecordId: data.userRecordId,
+        isAdmin: data.isAdmin
     };
 }
