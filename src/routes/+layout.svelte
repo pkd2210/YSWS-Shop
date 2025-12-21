@@ -2,6 +2,7 @@
 	import '../app.css';
 	import favicon from '$lib/assets/favicon.svg';
     import config from '$lib/stores/config.json';
+	
 	let { children, data } = $props();
 </script>
 
@@ -12,6 +13,9 @@
 				<span>{data.user.first_name} | <a href="{config['url-base']}/logout">Logout</a> | </span>
 				<a href="{config['url-base']}">Home</a>
 				<a href="{config['url-base']}/shop">Shop</a>
+				{#if data.isAdmin}
+				<a href="{config['url-base']}/admin">Admin</a>
+				{/if}
 			</div>
 		</div>
 	{/if}
