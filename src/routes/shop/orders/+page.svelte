@@ -74,7 +74,7 @@
                         </div>
                         <div class="detail">
                             <span class="label">Price:</span>
-                            <span class="value">{order.Price} tokens</span>
+                            <span class="value">{order.Price} {config["tokens-symbol"]}</span>
                         </div>
                         <div class="detail">
                             <span class="label">Order Date:</span>
