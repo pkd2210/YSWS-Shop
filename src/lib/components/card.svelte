@@ -27,10 +27,10 @@
     async function handleBuyGrant(item, data) {
         const grantAmount = document.createElement('div');
         grantAmount.innerHTML = `
-            <label for="grant-amount">Enter Grant Amount (${config['tokens-symbol']}): </label>
+            <label for="grant-amount">Enter the amount of dollars you need on your grant (exp, 10$ = ${item.price}${config['tokens-symbol']} * 10$ = ${item.price * 10}${config['tokens-symbol']}): </label>
             <input type="number" id="grant-amount" name="grant-amount" min="1" required />
         `;
-        const userInput = prompt('Enter Grant Amount (' + config['tokens-symbol'] + '):', '1');
+        const userInput = prompt('Enter Grant amount ($):', '1');
         const amount = parseInt(userInput);
         if (isNaN(amount) || amount < 1) {
             alert('Invalid grant amount.');

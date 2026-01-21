@@ -16,8 +16,9 @@ export async function POST({ request}) {
 
         const userRecord = await base(process.env.USERS_TABLE_ID!).find(data.userRecordId);
         const actualUserTokens = userRecord.fields.Tokens as number;
+        const itemPrice = item.price * amount;
 
-        if (actualUserTokens < item.price) {
+        if (actualUserTokens < itemPrice) {
             return new Response(JSON.stringify({ success: false, message: 'Insufficient tokens.' }), {
                 status: 402,
                 headers: { 'Content-Type': 'application/json' }
@@ -42,7 +43,7 @@ export async function POST({ request}) {
                 fields: {
                     SlackID: [data.userRecordId],
                     ItemID: [itemRecord.id],
-                    Price: item.price,
+                    Price: itemPrice,
                     grantAmount: amount,
                     itemName: item.name,
                     OrderDate: new Date().toISOString(),
@@ -54,7 +55,7 @@ export async function POST({ request}) {
             {
                 id: data.userRecordId,
                 fields: {
-                    Tokens: actualUserTokens - item.price
+                    Tokens: actualUserTokens - itemPrice
                 }
             }
         ]);
