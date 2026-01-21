@@ -16,8 +16,14 @@
         }
     });
 </script>
-<div class="title">{config["ysws-name"]}'s Shop</div>
-
+<div class="flex flex-col gap-4">
+    <section class="flex flex-col items-center justify-center gap-4">
+        <div class="title">{config["ysws-name"]}'s Shop</div>
+        <div class="flex flex-wrap items-center justify-center gap-4">
+            <a href="{config['url-base']}/shop/orders" class="px-4 py-2 bg-[var(--theme-color)] text-[var(--background-color)] rounded-lg shadow-md hover:shadow-lg transition-shadow">Orders</a>
+        </div>
+    </section>
+</div>
 {#each items as item}
     <Card {item} {data} />
 {/each}
